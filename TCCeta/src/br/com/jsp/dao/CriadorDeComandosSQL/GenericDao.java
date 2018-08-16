@@ -1,9 +1,14 @@
-
-package br.com.jsp.dao;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.com.jsp.dao.CriadorDeComandosSQL;
 
 import br.com.jsp.connector.ConnectionFactory;
 import br.com.jsp.bean.Annotations.Tabela;
 import br.com.jsp.bean.Annotations.Coluna;
+import br.com.jsp.bean.ClientesBean;
 import br.com.jsp.bean.response.Resposta;
 import java.awt.TextArea;
 import java.lang.annotation.Annotation;
@@ -26,10 +31,10 @@ import javax.swing.JOptionPane;
  */
 public class GenericDao<T> {
 
-    final String nomeBanco = "tcceta";
-    
+    final String nomeBanco = "tcc";
+
     private final Connection conexao;
-    
+
     final Class<T> typeClass;
 
     /**
@@ -231,7 +236,8 @@ public class GenericDao<T> {
     }
 
     /**
-     * Gerador de comandos UPDATE para um único objeto, irá mudar no banco o item que tiver o ID do objeto
+     * Gerador de comandos UPDATE para um único objeto, irá mudar no banco o
+     * item que tiver o ID do objeto
      *
      * @param obj Objeto a receber Update
      */
@@ -339,7 +345,8 @@ public class GenericDao<T> {
     }
 
     /**
-     * Gerador de comandos UPDATE para uma lista de objetos, irá mudar no banco os itens que tiverem os IDs dos objetos na lista
+     * Gerador de comandos UPDATE para uma lista de objetos, irá mudar no banco
+     * os itens que tiverem os IDs dos objetos na lista
      *
      * @param lista
      */
@@ -471,8 +478,6 @@ public class GenericDao<T> {
 
         String sql = "";
 
-        Resposta<ArrayList<T>> resposta;
-        
         if (typeClass.isAnnotationPresent(Tabela.class)) {
 
             Tabela tab = typeClass.getAnnotation(Tabela.class);
@@ -481,9 +486,13 @@ public class GenericDao<T> {
 
             ArrayList<T> list = new ArrayList<>();
 
+            Resposta<ArrayList<T>> r = new Resposta<ArrayList<T>>();
+
             try {
 
                 Statement pstmt = conexao.createStatement();
+
+                r.setMensagem(pstmt.toString());
 
                 ResultSet rs = pstmt.executeQuery(sql);
 
@@ -515,22 +524,21 @@ public class GenericDao<T> {
 
                 }
 
-                
                 pstmt.close();
-                
-                return new Resposta<ArrayList<T>>("Funcionou", list, true);
-                
+                r.setObjeto(list);
+                r.setFuncionou(true);
 
             } catch (Exception e) {
 
-            	return new Resposta<>("Erro");
+                System.out.println(e.getMessage());
 
             }
 
+            return r;
 
-        } else {
-        	return new Resposta<>("Erro");
         }
+
+        return null;
 
     }
 
@@ -655,10 +663,10 @@ public class GenericDao<T> {
 
         }
 
-        if(primaryField.equals(null)){
+        if (primaryField.equals(null)) {
             return new Resposta<>("Nenhum Field é primaryField");
         }
-        
+
         String sql = "";
 
         if (typeClass.isAnnotationPresent(Tabela.class)) {
@@ -676,7 +684,7 @@ public class GenericDao<T> {
                 ResultSet rs = pstmt.executeQuery(sql);
 
                 int fieldsUsados = 0;
-                
+
                 while (rs.next()) {
 
                     T obj = typeClass.newInstance();
@@ -705,8 +713,8 @@ public class GenericDao<T> {
                     list.add(obj);
 
                 }
-                
-                if(fieldsUsados == 0){
+
+                if (fieldsUsados == 0) {
                     return new Resposta<>("Nenhum field tem @Coluna");
                 }
 
@@ -720,7 +728,7 @@ public class GenericDao<T> {
 
             return new Resposta<ArrayList<T>>("Terminado", list, true);
 
-        }else{
+        } else {
             return new Resposta<>("Classe não tem @Tabela");
         }
 
@@ -746,26 +754,26 @@ public class GenericDao<T> {
             }
         }
 
-        if(primaryField.equals(null)){
-            
+        if (primaryField.equals(null)) {
+
             return new Resposta<>("Nenhum Field é primaryField", null, false);
-            
+
         }
-        
+
         String sql = null;
 
         if (typeClass.isAnnotationPresent(Tabela.class)) {
 
             Tabela tab = typeClass.getAnnotation(Tabela.class);
 
-            if(order == Order.ASC){
-                sql = "SELECT * FROM " + tab.nome() + " WHERE " + primaryField.getAnnotation(Coluna.class).nome() + " BETWEEN " + comeco + " AND " + fim + " ORDER BY " +  f.getAnnotation(Coluna.class).nome() + " ASC";
-            }else if(order == Order.DESC){
-                sql = "SELECT * FROM " + tab.nome() + " WHERE " + primaryField.getAnnotation(Coluna.class).nome() + " BETWEEN " + comeco + " AND " + fim + " ORDER BY " +  f.getAnnotation(Coluna.class).nome() + " DESC";
-            }else{
+            if (order == Order.ASC) {
+                sql = "SELECT * FROM " + tab.nome() + " WHERE " + primaryField.getAnnotation(Coluna.class).nome() + " BETWEEN " + comeco + " AND " + fim + " ORDER BY " + f.getAnnotation(Coluna.class).nome() + " ASC";
+            } else if (order == Order.DESC) {
+                sql = "SELECT * FROM " + tab.nome() + " WHERE " + primaryField.getAnnotation(Coluna.class).nome() + " BETWEEN " + comeco + " AND " + fim + " ORDER BY " + f.getAnnotation(Coluna.class).nome() + " DESC";
+            } else {
                 return new Resposta<>("Ordem inválida, use Order.ASC ou Order.DESC");
             }
-            
+
             ArrayList<T> list = new ArrayList<T>();
 
             try {
@@ -812,31 +820,54 @@ public class GenericDao<T> {
 
             return new Resposta<ArrayList<T>>("Terminado", list, true);
 
-        }else{
-            
+        } else {
+
             return new Resposta<>("Classe não tem @Tabela");
-            
+
         }
 
     }
-    
-    public Resposta<ArrayList<T>> select() {
+
+    public Resposta<ArrayList<T>> selectWhere(String campo, int comparacao, Object valor) {
 
         String sql = "";
 
-        Resposta<ArrayList<T>> resposta;
-        
         if (typeClass.isAnnotationPresent(Tabela.class)) {
 
             Tabela tab = typeClass.getAnnotation(Tabela.class);
 
-            sql = "SELECT * FROM " + tab.nome();
+            Field fieldEscolhido;
+            
+            try {
+                fieldEscolhido = typeClass.getDeclaredField(campo);
+            } catch (Exception e) {
+                return new Resposta<>("Campo " + campo + " não existe na classe " + typeClass.getSimpleName());
+            }
+
+            if(!fieldEscolhido.isAnnotationPresent(Coluna.class)){
+                return new Resposta<>("Campo " + campo + " não tem @Coluna");
+            }
+            
+            
+            if (comparacao == Where.IGUAL.ordinal()) {
+                sql = "SELECT * FROM " + tab.nome() + " WHERE " + fieldEscolhido.getAnnotation(Coluna.class).nome() + " = " + valor;
+            }else if(comparacao == Where.MAIOR.ordinal()){
+                sql = "SELECT * FROM " + tab.nome() + " WHERE " + fieldEscolhido.getAnnotation(Coluna.class).nome() + " > " + valor;
+            }else if(comparacao == Where.MENOR.ordinal()){
+                sql = "SELECT * FROM " + tab.nome() + " WHERE " + fieldEscolhido.getAnnotation(Coluna.class).nome() + " < " + valor;
+            }else{
+                
+            }
 
             ArrayList<T> list = new ArrayList<>();
+
+            Resposta<ArrayList<T>> r = new Resposta<ArrayList<T>>();
 
             try {
 
                 Statement pstmt = conexao.createStatement();
+
+                r.setMensagem(pstmt.toString());
 
                 ResultSet rs = pstmt.executeQuery(sql);
 
@@ -868,25 +899,22 @@ public class GenericDao<T> {
 
                 }
 
-                
                 pstmt.close();
-                
-                return new Resposta<ArrayList<T>>("Funcionou", list, true);
-                
+                r.setObjeto(list);
+                r.setFuncionou(true);
 
             } catch (Exception e) {
 
-            	return new Resposta<>("Erro");
+                System.out.println(e.getMessage());
 
             }
 
+            return r;
 
-        } else {
-        	return new Resposta<>("Erro");
         }
+
+        return null;
 
     }
 
 }
-
-

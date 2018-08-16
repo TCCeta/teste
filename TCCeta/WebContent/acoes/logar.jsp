@@ -45,6 +45,7 @@
 				//Criar a sessão		
 				session.setAttribute("sessaoUsuario", ub);
 				session.setAttribute("nivel", 1);
+				session.setAttribute("id", funcionario.getIdCliente());
 				response.sendRedirect("../admin.jsp");
 				
 				encontrou = true;
