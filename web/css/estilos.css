@@ -1,0 +1,235 @@
+/*importar fonte*/
+@font-face {
+    font-family: "fonteLogo";
+    src: url(../fontes/lemon_milk/LemonMilk.otf)
+}
+
+body {
+    background-image: url(../imagens/fundos/doodles.png);
+}
+
+/*Desktop*/
+@media only screen and (min-width: 1081px) {
+    input[type="data"]{
+
+        width: 320px;
+        padding: 5px;
+        margin-bottom: 10px;
+        border: solid 1px #ccc;
+        border-radius: 5px;
+
+    }
+
+    .formulario {
+        width: 300px;
+        height: 375px;
+        background-color: darkgray;
+        margin: 5% auto;
+        border-radius: 5px;
+        padding: 10px;
+        font-family: fonteLogo;
+    }
+    .formularioLogin {
+        width: 300px;
+        height: 250px;
+        background-color: darkgray;
+        margin: 5% auto;
+        border-radius: 5px;
+        padding: 10px;
+        font-family: fonteLogo;
+    }
+
+
+
+
+
+
+
+
+
+    /*Alterei daqui*/
+    .formularioCadastro {
+        width: 700px;
+        height: 450px;
+        background-color: darkgray;
+        margin: 10% auto;
+        border-radius: 5px;
+        padding: 10px;
+        font-family: fonteLogo;
+    }
+    .campoImagem{
+        float: right;
+        overflow: auto;
+    }
+    img{
+        max-width:180px;
+        max-height:180px;
+    }
+    input[type=file]{
+        padding:10px;
+        background: gray;
+    }
+
+    /*Até aqui*/
+
+    imagem {
+        overflow: auto;
+        float: right;
+    }
+    header h1 {
+        float: left;
+    }
+    .header {
+        float: auto;
+        overflow: auto;
+        background-color: black;
+        color: white;
+        font-family: fonteLogo;
+    }
+    footer {
+        position: relative;
+        text-align: left;
+        width: 99%;
+        margin: auto;
+        overflow: auto;
+        bottom: 0px;
+    }
+    footer p {
+        float: left;
+        margin-top: 20px;
+    }
+    footer a {
+        float: right;
+        margin: 1px;
+    }
+}
+
+@media only screen and (min-width: 720px) and (max-width: 1080px) {
+    .formulario {
+        width: 90%;
+        background-color: darkgray;
+        margin: 5% auto;
+        border-radius: 5px;
+        font-family: fonteLogo;
+    }
+    .formularioLogin {
+        width: 28%;
+        background-color: darkgray;
+        margin: 5% auto;
+        border-radius: 5px;
+        padding: 10px;
+        font-family: fonteLogo;
+    }
+    header h1 {
+        float: left;
+    }
+    .header {
+        background-color: black;
+        color: white;
+        font-family: fonteLogo;
+        overflow: auto;
+    }
+    footer {
+        position: absolute;
+        text-align: left;
+        width: 90%;
+        margin: auto;
+        overflow: auto;
+        bottom: 0px;
+    }
+    footer p {
+        float: left;
+        margin-top: 20px;
+    }
+    footer a {
+        float: right;
+        margin: 1px;
+    }
+}
+
+@media only screen and (max-width: 719px) {
+    .formulario {
+        background-color: darkgray;
+        margin: 5% auto;
+        border-radius: 5px;
+        font-family: fonteLogo;
+    }
+    .formularioLogin {
+        width: 28%;
+        background-color: darkgray;
+        margin: 5% auto;
+        border-radius: 5px;
+        padding: 10px;
+        font-family: fonteLogo;
+    }
+    header h1 {
+        float: left;
+    }
+    .header {
+        float: auto;
+        background-color: black;
+        color: white;
+        font-family: fonteLogo;
+        overflow: auto;
+    }
+    footer {
+        position: absolute;
+        text-align: left;
+        width: 90%;
+        margin: auto;
+        overflow: auto;
+        bottom: 0px;
+    }
+    footer p {
+        float: left;
+        margin-top: 80px;
+    }
+    footer a {
+        float: right;
+        margin: 1px;
+    }
+}
+
+#menu {
+    float: right;
+}
+
+#menu a {
+    margin-top: 30px;
+    font-family: fonteLogo;
+    border-radius: 5px;
+    color: black;
+    text-decoration: none;
+    padding: 5px;
+    display: inline-block;
+    color: white;
+}
+
+.inputs {
+    border-radius: 5px;
+}
+
+.fieldsete {
+    height: 300px;
+    width: 200px;
+    vertical-align: center;
+    padding: 0;
+    margin: 20px;
+    box-shadow: 0px 0px 15px;
+    display: inline-block;
+}
+
+.achados {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#botaoRedondo {
+    border-radius: 5px;
+    border: solid 1px #ccc;
+}
