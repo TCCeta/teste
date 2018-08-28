@@ -8,23 +8,19 @@ package br.com.jsp.dao.CriadorDeComandosSQL;
 import br.com.jsp.connector.ConnectionFactory;
 import br.com.jsp.bean.Annotations.Tabela;
 import br.com.jsp.bean.Annotations.Coluna;
-import br.com.jsp.bean.ClientesBean;
 import br.com.jsp.bean.response.Resposta;
-import java.awt.TextArea;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Collection;
-import javax.swing.JOptionPane;
 
 /**
- * Classe gen√©rica para cria√ß√£o de comandos SQL
+ * Classe genÈrica para criaÁ„o de comandos SQL
  *
  * @author patrick
  * @param <T> Tipo de dado a ser Usado nos comandos
@@ -39,7 +35,6 @@ public class GenericDao<T> {
 
     /**
      * Construtor
-     *
      * @param clazz Classe.class a ser usada nos comandos
      */
     public GenericDao(Class<T> clazz) {
@@ -48,7 +43,7 @@ public class GenericDao<T> {
     }
 
     /**
-     * Gerador de comandos INSERT para um s√≥ Objeto
+     * Gerador de comandos INSERT para um sÛ Objeto
      *
      * @param obj Objeto a ser inserido
      */
@@ -63,7 +58,7 @@ public class GenericDao<T> {
 
             String sql = "";
 
-            sql = "INSERT INTO " + tab.nome() + " (";
+            sql += "\nINSERT INTO " + tab.nome() + " (";
 
             for (Field field : typeClass.getDeclaredFields()) {
 
@@ -78,7 +73,7 @@ public class GenericDao<T> {
 
             }
 
-            sql = sql.substring(0, sql.length() - 1) + ") VALUES (";
+            sql = sql.substring(0, sql.length() - 1) + ") \nVALUES\n    (";
 
             for (Field fieldsUsado : fieldsUsados) {
 
@@ -129,7 +124,7 @@ public class GenericDao<T> {
 
                 pstmt.close();
 
-            } catch (Exception e) {
+            } catch (IllegalAccessException | IllegalArgumentException | SecurityException | SQLException e) {
 
                 System.out.println(e.getMessage());
 
@@ -155,7 +150,7 @@ public class GenericDao<T> {
 
             String sql = "";
 
-            sql = "INSERT INTO " + ann.nome() + " (";
+            sql = "\nINSERT INTO " + ann.nome() + " (";
 
             for (Field field : typeClass.getDeclaredFields()) {
 
@@ -170,11 +165,11 @@ public class GenericDao<T> {
 
             }
 
-            sql = sql.substring(0, sql.length() - 1) + ") VALUES";
+            sql = sql.substring(0, sql.length() - 1) + ") \nVALUES\n";
 
             for (Object object : lista) {
 
-                sql += "(";
+                sql += "    (";
 
                 for (Field fieldsUsado : fieldsUsados) {
 
@@ -182,10 +177,10 @@ public class GenericDao<T> {
 
                 }
 
-                sql = sql.substring(0, sql.length() - 1) + "),";
+                sql = sql.substring(0, sql.length() - 1) + "),\n";
 
             }
-            sql = sql.substring(0, sql.length() - 1);
+            sql = sql.substring(0, sql.length() - 2);
 
             int idx = 0;
 
@@ -226,7 +221,7 @@ public class GenericDao<T> {
 
                 System.out.println(pstmt);
 
-                pstmt.execute();
+                //pstmt.execute();
                 pstmt.close();
 
             } catch (Exception e) {
@@ -236,7 +231,7 @@ public class GenericDao<T> {
     }
 
     /**
-     * Gerador de comandos UPDATE para um √∫nico objeto, ir√° mudar no banco o
+     * Gerador de comandos UPDATE para um ˙nico objeto, ir· mudar no banco o
      * item que tiver o ID do objeto
      *
      * @param obj Objeto a receber Update
@@ -278,7 +273,7 @@ public class GenericDao<T> {
 
             sql = sql.substring(0, sql.length() - 1) + " WHERE " + primaryField.getAnnotation(Coluna.class).nome() + " = ?";
 
-            System.out.println(sql);
+            //System.out.println(sql);
 
             try {
 
@@ -329,7 +324,7 @@ public class GenericDao<T> {
 
                 System.out.println(pstmt);
 
-                pstmt.execute();
+                //pstmt.execute();
                 pstmt.close();
 
             } catch (Exception e) {
@@ -339,13 +334,13 @@ public class GenericDao<T> {
             }
 
         } else {
-            System.out.println("Esta classe n√£o tem @Tabela");
+            System.out.println("Esta classe n„o tem @Tabela");
         }
 
     }
 
     /**
-     * Gerador de comandos UPDATE para uma lista de objetos, ir√° mudar no banco
+     * Gerador de comandos UPDATE para uma lista de objetos, ir· mudar no banco
      * os itens que tiverem os IDs dos objetos na lista
      *
      * @param lista
@@ -390,7 +385,7 @@ public class GenericDao<T> {
 
                             for (T t : lista) {
 
-                                System.out.println(field.get(t));
+                                //System.out.println(field.get(t));
 
                                 sql += " WHEN ?  THEN ?";
 
@@ -414,8 +409,6 @@ public class GenericDao<T> {
                 }
 
                 sql = sql.substring(0, sql.length() - 1) + ")";
-
-                System.out.println(sql);
 
                 PreparedStatement pstmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -454,7 +447,8 @@ public class GenericDao<T> {
 
                 System.out.println(pstmt);
 
-                pstmt.execute();
+                //pstmt.execute();
+                
                 pstmt.close();
 
             } catch (Exception e) {
@@ -464,7 +458,7 @@ public class GenericDao<T> {
             }
 
         } else {
-            System.out.println("Esaa classe n√£o tem @Tabela");
+            System.out.println("Esaa classe n„o tem @Tabela");
         }
 
     }
@@ -494,7 +488,9 @@ public class GenericDao<T> {
 
                 r.setMensagem(pstmt.toString());
 
-                ResultSet rs = pstmt.executeQuery(sql);
+                System.out.println(pstmt);
+                
+                /*ResultSet rs = pstmt.executeQuery(sql);
 
                 while (rs.next()) {
 
@@ -522,7 +518,7 @@ public class GenericDao<T> {
 
                     list.add(obj);
 
-                }
+                }*/
 
                 pstmt.close();
                 r.setObjeto(list);
@@ -543,19 +539,25 @@ public class GenericDao<T> {
     }
 
     /**
-     * Gerador de comando SELECT * [...] ORDER BY [f]
-     *
-     * @param f Field pelo qual o resultado vai ser ordenado
+     * Gerador de comando SELECT * [...] ORDER BY campo
+     * 
+     * @param campo nome do campo pelo qual o resultado deve ser ordenado
      * @param ordem Ascendente ou Descendente
      * @return lista dos objetos obtidos a partir do SELECT
      *
      */
-    public Resposta<ArrayList<T>> selectAll(Field f, Order ordem) {
+    public Resposta<ArrayList<T>> selectAll(String campo, Order ordem) {
 
         String sql = null;
-
+        
+        Field f = null;
+        try{
+            f = typeClass.getDeclaredField(campo);
+        }catch(Exception e){
+            return new Resposta<>("Campo " + campo + " n„o existe em " + typeClass.getSimpleName());
+        }
         if (!f.isAnnotationPresent(Coluna.class)) {
-            return new Resposta<ArrayList<T>>("Field apresentado n√£o cont√©m @Coluna", null, false);
+            return new Resposta<ArrayList<T>>("Field apresentado n„o contÈm @Coluna", null, false);
         }
 
         if (typeClass.isAnnotationPresent(Tabela.class)) {
@@ -563,7 +565,7 @@ public class GenericDao<T> {
             Tabela tab = typeClass.getAnnotation(Tabela.class);
 
             if (null == ordem) {
-                return new Resposta<ArrayList<T>>("Ordem n√£o foi informada", null, false);
+                return new Resposta<ArrayList<T>>("Ordem n„o foi informada", null, false);
             } else {
                 switch (ordem) {
                     case ASC:
@@ -577,13 +579,15 @@ public class GenericDao<T> {
 
             ArrayList<T> list = new ArrayList<>();
 
-            Resposta<ArrayList<T>> r = new Resposta<ArrayList<T>>();
+            Resposta<ArrayList<T>> r = new Resposta<>();
 
             try {
 
                 Statement pstmt = conexao.createStatement();
 
-                ResultSet rs = pstmt.executeQuery(sql);
+                System.out.println(pstmt);
+                
+                /*ResultSet rs = pstmt.executeQuery(sql);
 
                 r.setMensagem(pstmt.toString());
 
@@ -613,7 +617,7 @@ public class GenericDao<T> {
 
                     list.add(obj);
 
-                }
+                }*/
 
                 pstmt.close();
                 r.setObjeto(list);
@@ -629,206 +633,18 @@ public class GenericDao<T> {
 
         }
 
-        return new Resposta<ArrayList<T>>("Classe n√£o tem @Tabela", null, false);
+        return new Resposta<ArrayList<T>>("Classe n„o tem @Tabela", null, false);
 
     }
 
     /**
-     * Gerador de comando SELECT com limite por ID
-     *
-     * @param comeco primeiro ID a ser procurado
-     * @param fim ultimo ID a ser procurado
-     * @return lista dos objetos obtidos a partir do SELECT
+     * Criador de comandos SELECT com WHERE
+     * @param campo campo a ser usado no WHERE
+     * @param comparacao tipo de verificaÁ„o do WHERE, como Where.IGUAL, Where.MAIOR, etc...
+     * @param valor valor a ser usado para verificaÁ„o do Where
+     * @return ArrayList com os objetos retornados pelo SELECT
      */
-    public Resposta<ArrayList<T>> selectLimitado(int comeco, int fim) {
-
-        if (comeco > fim) {
-            int holder = comeco;
-            comeco = fim;
-            fim = holder;
-        }
-
-        Field primaryField = null;
-
-        for (Field declaredField : typeClass.getDeclaredFields()) {
-
-            try {
-                if (declaredField.getAnnotation(Coluna.class).primaryKey()) {
-                    primaryField = declaredField;
-                    break;
-                }
-            } catch (Exception e) {
-                continue;
-            }
-
-        }
-
-        if (primaryField.equals(null)) {
-            return new Resposta<>("Nenhum Field √© primaryField");
-        }
-
-        String sql = "";
-
-        if (typeClass.isAnnotationPresent(Tabela.class)) {
-
-            Tabela tab = typeClass.getAnnotation(Tabela.class);
-
-            sql = "SELECT * FROM " + tab.nome() + " WHERE " + primaryField.getAnnotation(Coluna.class).nome() + " BETWEEN " + comeco + " AND " + fim;
-
-            ArrayList<T> list = new ArrayList<T>();
-
-            try {
-
-                Statement pstmt = conexao.createStatement();
-
-                ResultSet rs = pstmt.executeQuery(sql);
-
-                int fieldsUsados = 0;
-
-                while (rs.next()) {
-
-                    T obj = typeClass.newInstance();
-
-                    for (Field field : typeClass.getDeclaredFields()) {
-
-                        if (field.isAnnotationPresent(Coluna.class)) {
-
-                            boolean wasAccessible = field.isAccessible();
-
-                            if (!wasAccessible) {
-                                field.setAccessible(true);
-                            }
-
-                            fieldsUsados++;
-                            field.set(obj, rs.getObject(field.getAnnotation(Coluna.class).nome()));
-
-                            if (!wasAccessible) {
-                                field.setAccessible(false);
-                            }
-
-                        }
-
-                    }
-
-                    list.add(obj);
-
-                }
-
-                if (fieldsUsados == 0) {
-                    return new Resposta<>("Nenhum field tem @Coluna");
-                }
-
-                pstmt.close();
-
-            } catch (Exception e) {
-
-                return new Resposta<>("Erro de banco : " + e.getMessage());
-
-            }
-
-            return new Resposta<ArrayList<T>>("Terminado", list, true);
-
-        } else {
-            return new Resposta<>("Classe n√£o tem @Tabela");
-        }
-
-    }
-
-    public Resposta<ArrayList<T>> selectLimitado(int comeco, int fim, Field f, Order order) {
-
-        if (comeco > fim) {
-            int holder = comeco;
-            comeco = fim;
-            fim = holder;
-        }
-
-        Field primaryField = null;
-
-        for (Field declaredField : typeClass.getDeclaredFields()) {
-            try {
-                if (declaredField.getAnnotation(Coluna.class).primaryKey()) {
-                    primaryField = declaredField;
-                    break;
-                }
-            } catch (Exception e) {
-            }
-        }
-
-        if (primaryField.equals(null)) {
-
-            return new Resposta<>("Nenhum Field √© primaryField", null, false);
-
-        }
-
-        String sql = null;
-
-        if (typeClass.isAnnotationPresent(Tabela.class)) {
-
-            Tabela tab = typeClass.getAnnotation(Tabela.class);
-
-            if (order == Order.ASC) {
-                sql = "SELECT * FROM " + tab.nome() + " WHERE " + primaryField.getAnnotation(Coluna.class).nome() + " BETWEEN " + comeco + " AND " + fim + " ORDER BY " + f.getAnnotation(Coluna.class).nome() + " ASC";
-            } else if (order == Order.DESC) {
-                sql = "SELECT * FROM " + tab.nome() + " WHERE " + primaryField.getAnnotation(Coluna.class).nome() + " BETWEEN " + comeco + " AND " + fim + " ORDER BY " + f.getAnnotation(Coluna.class).nome() + " DESC";
-            } else {
-                return new Resposta<>("Ordem inv√°lida, use Order.ASC ou Order.DESC");
-            }
-
-            ArrayList<T> list = new ArrayList<T>();
-
-            try {
-
-                Statement pstmt = conexao.createStatement();
-
-                ResultSet rs = pstmt.executeQuery(sql);
-
-                while (rs.next()) {
-
-                    T obj = typeClass.newInstance();
-
-                    for (Field field : typeClass.getDeclaredFields()) {
-
-                        if (field.isAnnotationPresent(Coluna.class)) {
-
-                            boolean wasAccessible = field.isAccessible();
-
-                            if (!wasAccessible) {
-                                field.setAccessible(true);
-                            }
-
-                            field.set(obj, rs.getObject(field.getAnnotation(Coluna.class).nome()));
-
-                            if (!wasAccessible) {
-                                field.setAccessible(false);
-                            }
-
-                        }
-
-                    }
-
-                    list.add(obj);
-
-                }
-
-                pstmt.close();
-
-            } catch (Exception e) {
-
-                return new Resposta<>("Classe n√£o tem @Tabela");
-
-            }
-
-            return new Resposta<ArrayList<T>>("Terminado", list, true);
-
-        } else {
-
-            return new Resposta<>("Classe n√£o tem @Tabela");
-
-        }
-
-    }
-
-    public Resposta<ArrayList<T>> selectWhere(String campo, int comparacao, Object valor) {
+    public Resposta<ArrayList<T>> selectWhere(String campo, Where comparacao, Object valor) {
 
         String sql = "";
 
@@ -838,27 +654,100 @@ public class GenericDao<T> {
 
             Field fieldEscolhido;
             
+            sql = "SELECT * FROM " + tab.nome() + " WHERE ";
+            
             try {
                 fieldEscolhido = typeClass.getDeclaredField(campo);
             } catch (Exception e) {
-                return new Resposta<>("Campo " + campo + " n√£o existe na classe " + typeClass.getSimpleName());
+                return new Resposta<>("Campo " + campo + " n„o existe na classe " + typeClass.getSimpleName());
             }
 
             if(!fieldEscolhido.isAnnotationPresent(Coluna.class)){
-                return new Resposta<>("Campo " + campo + " n√£o tem @Coluna");
+                return new Resposta<>("Campo " + campo + " n„o tem @Coluna");
             }
             
             
-            if (comparacao == Where.IGUAL.ordinal()) {
-                sql = "SELECT * FROM " + tab.nome() + " WHERE " + fieldEscolhido.getAnnotation(Coluna.class).nome() + " = " + valor;
-            }else if(comparacao == Where.MAIOR.ordinal()){
-                sql = "SELECT * FROM " + tab.nome() + " WHERE " + fieldEscolhido.getAnnotation(Coluna.class).nome() + " > " + valor;
-            }else if(comparacao == Where.MENOR.ordinal()){
-                sql = "SELECT * FROM " + tab.nome() + " WHERE " + fieldEscolhido.getAnnotation(Coluna.class).nome() + " < " + valor;
-            }else{
+            
+            
+            
+            
+            if (comparacao == Where.IGUAL) 
+            {
+                sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " = " + valor;
+            }
+            else if(comparacao == Where.DIFERENTE)
+            {
+                sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " != " + valor;
+            }
+            else if(comparacao == Where.MAIOR)
+            {
+                sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " > " + valor;
+            }
+            else if(comparacao == Where.MENOR)
+            {
+                sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " < " + valor;
+            }
+            else if(comparacao == Where.MAIOR_IGUAL)
+            {
+                sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " >= " + valor;
+            }
+            else if(comparacao == Where.MENOR_IGUAL)
+            {
+                sql += fieldEscolhido.getAnnotation(Coluna.class).nome() + " <= " + valor;
+            }
+            else if(comparacao == Where.BETWEEN)
+            {
+                if(valor.getClass().isArray()){
+                    try{
+                        Object[] inf = (Object[])valor;
+                        sql = "SELECT * FROM " + tab.nome() + " WHERE " + fieldEscolhido.getAnnotation(Coluna.class).nome() + " BETWEEN " + inf[0] + " AND " + inf[1];
+                    }catch(Exception e){
+                        return new Resposta<>(e.getMessage());
+                    }
+                }else{
+                    return new Resposta<>("valor informado deve ser Array quando comparacao È BETWEEN");
+                }
+            }
+            else if(comparacao == Where.NOT_BETWEEN)
+            {
+                if(valor.getClass().isArray()){
+                    try{
+                        Object[] inf = (Object[])valor;
+                        sql = "SELECT * FROM " + tab.nome() + " WHERE " + fieldEscolhido.getAnnotation(Coluna.class).nome() + " NOT BETWEEN " + inf[0] + " AND " + inf[1];
+                    }catch(Exception e){
+                        return new Resposta<>(e.getMessage());
+                    }
+                }else{
+                    return new Resposta<>("valor informado deve ser Array quando comparacao È NOT_BETWEEN");
+                }
+            }
+            else if(comparacao == Where.LIKE)
+            {
+                
+                if(valor instanceof String){
+                    sql = "SELECT * FROM " + tab.nome() + " WHERE " + fieldEscolhido.getAnnotation(Coluna.class).nome() + " LIKE " + valor;
+                }else{
+                    return new Resposta<>("valor informado deve ser String quando comparacao È LIKE");
+                }
                 
             }
-
+            else if(comparacao == Where.NOT_LIKE)
+            {
+                
+                if(valor instanceof String){
+                    sql = "SELECT * FROM " + tab.nome() + " WHERE " + fieldEscolhido.getAnnotation(Coluna.class).nome() + " NOT LIKE " + valor;
+                }else{
+                    return new Resposta<>("valor informado deve ser String quando comparacao È NOT LIKE");
+                }
+                
+            }
+            else
+            {
+                return new Resposta<>("comparacao invalida");
+            }
+            
+            
+           
             ArrayList<T> list = new ArrayList<>();
 
             Resposta<ArrayList<T>> r = new Resposta<ArrayList<T>>();
@@ -869,7 +758,9 @@ public class GenericDao<T> {
 
                 r.setMensagem(pstmt.toString());
 
-                ResultSet rs = pstmt.executeQuery(sql);
+                System.out.println(pstmt);
+                
+                /*ResultSet rs = pstmt.executeQuery(sql);
 
                 while (rs.next()) {
 
@@ -897,7 +788,7 @@ public class GenericDao<T> {
 
                     list.add(obj);
 
-                }
+                }*/
 
                 pstmt.close();
                 r.setObjeto(list);
@@ -916,5 +807,7 @@ public class GenericDao<T> {
         return null;
 
     }
+    
+    
 
 }

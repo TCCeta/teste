@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.com.jsp.bean.response;
 
 /**
@@ -6,11 +11,11 @@ package br.com.jsp.bean.response;
  */
 public class Resposta<T> {
 
-    private T objeto = null;
+    private T objeto;
 
-    private Boolean funcionou = null;
+    private Boolean funcionou;
 
-    private String mensagem = null;
+    private String mensagem;
 
     public Resposta(String mensagem, T objeto, boolean funcionou) {
 
@@ -20,11 +25,11 @@ public class Resposta<T> {
 
     }
     
-    public Resposta(String mensagem) {
-    	this(mensagem, null, false);
+    public Resposta(String mensagem){
+        this(mensagem, null, false);
     }
-    
-    public Resposta(){
+
+    public Resposta() {
     }
 
     /**
@@ -52,27 +57,27 @@ public class Resposta<T> {
      * @param objeto the objeto to set
      */
     public void setObjeto(T objeto) {
-        if (this.objeto.equals(null)) {
-            this.objeto = objeto;
-        }
+
+        this.objeto = objeto;
+
     }
 
     /**
      * @param funcionou the funcionou to set
      */
     public void setFuncionou(Boolean funcionou) {
-        if (this.funcionou.equals(null)) {
-            this.funcionou = funcionou;
-        }
+
+        this.funcionou = funcionou;
+
     }
 
     /**
      * @param mensagem the mensagem to set
      */
     public void setMensagem(String mensagem) {
-        if (this.mensagem.equals(null)) {
-            this.mensagem = mensagem;
-        }
+
+        this.mensagem = mensagem;
+
     }
 
 }

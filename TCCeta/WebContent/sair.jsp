@@ -3,6 +3,7 @@
 <%
 	//Limpar a sessão
 	session.setAttribute("sessaoUsuario", null);
+	session.setAttribute("nivel", null);
 
 
 	//Redirecionamento

@@ -5,14 +5,12 @@
  */
 package br.com.jsp.dao;
 
-import br.com.jsp.bean.ClientesBean;
-import br.com.jsp.bean.FuncionariosBean;
+import br.com.jsp.bean.Funcionario;
 import br.com.jsp.bean.response.Resposta;
 import br.com.jsp.dao.CriadorDeComandosSQL.GenericDao;
+import br.com.jsp.dao.CriadorDeComandosSQL.Order;
 import br.com.jsp.dao.CriadorDeComandosSQL.Where;
 import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,41 +18,45 @@ import javax.swing.JOptionPane;
  */
 public class FuncionarioDao {
     
-    public static void insert(FuncionariosBean funcionario){
+    public static Resposta<ArrayList<Funcionario>> selectAll(){
         
-        new GenericDao<FuncionariosBean>(FuncionariosBean.class).insert(funcionario);
-        
-    }
-    
-    public static void insert(ArrayList<FuncionariosBean> funcionarios){
-        
-        new GenericDao<FuncionariosBean>(FuncionariosBean.class).insert(funcionarios);
+        return new GenericDao<Funcionario>(Funcionario.class).selectAll();
         
     }
     
-    public static void update(FuncionariosBean funcionario){
+    public static Resposta<ArrayList<Funcionario>> selectAll(String campo, Order order){
         
-        new GenericDao<FuncionariosBean>(FuncionariosBean.class).update(funcionario);
-        
-    }
-    
-    public static void update(ArrayList<FuncionariosBean> funcionarios){
-        
-        new GenericDao<FuncionariosBean>(FuncionariosBean.class).update(funcionarios);
+        return new GenericDao<Funcionario>(Funcionario.class).selectAll(campo, order);
         
     }
     
-    public static Resposta<ArrayList<FuncionariosBean>> selectAll(){
+    public static Resposta<ArrayList<Funcionario>> selectWhere(String campo, Where comparacao, Object valor){
         
-        return new GenericDao<FuncionariosBean>(FuncionariosBean.class).selectAll();
+        return new GenericDao<Funcionario>(Funcionario.class).selectWhere(campo, comparacao, valor);
         
     }
     
-    public static Resposta<ArrayList<FuncionariosBean>> selectWhere(String campo, int comparacao, Object valor){
+    public static void insert(Funcionario obj){
         
-    	System.out.println(campo+"\n"+comparacao+"\n"+valor);
-    	
-        return new GenericDao<FuncionariosBean>(FuncionariosBean.class).selectWhere(campo, comparacao, valor);
+        new GenericDao<Funcionario>(Funcionario.class).insert(obj);
+        
+    }
+    
+    public static void insert(ArrayList<Funcionario> lista){
+        
+        new GenericDao<Funcionario>(Funcionario.class).insert(lista);
+        
+    }
+    
+    public static void update(Funcionario obj){
+        
+        new GenericDao<Funcionario>(Funcionario.class).update(obj);
+        
+    }
+    
+    public static void update(ArrayList<Funcionario> lista){
+        
+        new GenericDao<Funcionario>(Funcionario.class).update(lista);
         
     }
     

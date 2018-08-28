@@ -2,38 +2,31 @@
 
 <%@ include file="include/topo_V2.jsp"%>
 
-	<main>
+<main>
 
-	<div>
-		<form class="formulario">
-			<h1>
-				<center>Bem vindo!</center>
-			</h1>
-			<p>
-			<center>No nosso site você poderá buscar pelos seus
-				pertences perdidos em algum evento!</center>
-			</p>
-			<p>
-			<center>Caso você não tenha uma conta clique em
-				"Cadastrar-se", caso contrario faça login e procure o que perdeu!</center>
-			</p>
-			<center>
-				<input type="submit" value="Perdi algo">
-			</center>
-		</form>
-	</div>
+<div>
+	<form class="formulario" action="acoes/verificarLoginIncial.jsp">
+		<h1>
+			<center>Bem vindo!</center>
+		</h1>
+		<p>
+		<center>No nosso site você poderá buscar pelos seus pertences
+			perdidos em algum evento!</center>
+		</p>
+		<p>
+		<center>Caso você não tenha uma conta clique em
+			"Cadastrar-se", caso contrario faça login e procure o que perdeu!</center>
+		</p>
+		<center>
+			<input type="submit" value="Perdi algo">
+		</center>
+	</form>
+</div>
 
-	</main>
+</main>
 
-	<section>
-		<footer>
-			<p>Copyright What is Missing 2018 | Todos os direitos reservados</p>
-			<a><img src="imagens\redesSociais\facebook.jpg"></a> <a><img
-				src="imagens\redesSociais\twitter.jpg"></a> <a><img
-				src="imagens\redesSociais\google.jpg"></a>
+<%@ include file="include/rodape.jsp"%>
 
-		</footer>
-	</section>
 
 </body>
 

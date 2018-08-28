@@ -1,12 +1,17 @@
 /*importar fonte*/
 @font-face {
 	font-family: "fonteLogo";
-	src: url(../fontes/lemon_milk/LemonMilk.otf)
+	src: url(../fontes/madeyn_sans/MadeynSans-Regular.ttf)
+}
+
+*{
+	font-family: fonteLogo;
 }
 
 body {
 	background-image: url(../imagens/fundos/doodles.png);
 }
+
 
 /*Desktop*/
 @media only screen and (min-width: 1081px) {
@@ -22,6 +27,15 @@ body {
 	.formularioLogin {
 		width: 300px;
 		height: 250px;
+		background-color: darkgray;
+		margin: 5% auto;
+		border-radius: 5px;
+		padding: 10px;
+		font-family: fonteLogo;
+	}
+	.formularioCadastroUsuario {
+		width: 300px;
+		height: 275px;
 		background-color: darkgray;
 		margin: 5% auto;
 		border-radius: 5px;
@@ -72,6 +86,14 @@ body {
 		padding: 10px;
 		font-family: fonteLogo;
 	}
+	.formularioCadastroUsuario {
+		width: 28%;
+		background-color: darkgray;
+		margin: 5% auto;
+		border-radius: 5px;
+		padding: 10px;
+		font-family: fonteLogo;
+	}
 	header h1 {
 		float: left;
 	}
@@ -107,6 +129,14 @@ body {
 		font-family: fonteLogo;
 	}
 	.formularioLogin {
+		width: 28%;
+		background-color: darkgray;
+		margin: 5% auto;
+		border-radius: 5px;
+		padding: 10px;
+		font-family: fonteLogo;
+	}
+	.formularioCadastroUsuario {
 		width: 28%;
 		background-color: darkgray;
 		margin: 5% auto;
@@ -161,6 +191,10 @@ body {
 	border-radius: 5px;
 }
 
+#inputs {
+	border-radius: 5px;
+}
+
 .fieldsete {
 	height: 300px;
 	width: 200px;
@@ -186,3 +220,71 @@ body {
 	border: solid 1px #ccc;
 }
 
+.formularioCadastro {
+	float: left;
+	border-radius: 5px;
+	padding: 10px;
+	font-family: fonteLogo;
+}
+
+.campoImagem {
+	padding: 10px;
+	overflow: auto;
+}
+
+img {
+	max-width: 200px;
+	max-height: 200px;
+}
+
+input[type=file] {
+	padding: 10px;
+	margin-bottom: 1px;
+}
+
+#cadastroDeItem {
+	width: 700px;
+	height: 350px;
+	background-color: darkgray;
+}
+
+.rodape {
+	overflow: auto;
+	background-color: lightgray;
+}
+
+textarea {
+	resize: none;
+	padding: 5px;
+	margin-top: 2px;
+}
+
+
+.data {
+	border-radius: 5px;
+}
+
+#cadastroDeItem {
+	margin-left: 10px;
+    width: 700px;
+    height: 380px;
+    background-color: darkgray;
+	border-radius: 5px;
+}
+
+.titulosTabs{
+	margin-left: 5px;
+}
+
+
+.nav-tabs { border-bottom: 2px solid #DDD; }
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
+    .nav-tabs > li > a { border: none; color: #666; }
+        .nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; color: #4285F4 !important; background: transparent; }
+        .nav-tabs > li > a::after { content: ""; background: #4285F4; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
+    .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
+.tab-nav > li > a::after { background: #21527d none repeat scroll 0% 0%; color: #fff; }
+.tab-pane { padding: 15px 0; }
+.tab-content{padding:20px}
+
+.card {background: #FFF none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; }

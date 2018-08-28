@@ -1,0 +1,89 @@
+CREATE TABLE `empresas` (
+	`cod_idEmpresa` INT NOT NULL AUTO_INCREMENT,
+	`dad_nomeEmpresa` varchar(50) NOT NULL,
+	`dad_cnpjEmpresa` varchar(20) NOT NULL,
+	`dad_emailEmpresa` varchar(100) NOT NULL,
+	`dad_telefoneEmpresa` varchar(15) NOT NULL,
+	`cod_idLocal` INT NOT NULL,
+	`cod_idConta` INT NOT NULL,
+	PRIMARY KEY (`cod_idEmpresa`)
+);
+
+CREATE TABLE `locais` (
+	`cod_idLocal` INT NOT NULL AUTO_INCREMENT,
+	`dad_rua` varchar(50) NOT NULL,
+	`dad_bairro` varchar(50) NOT NULL,
+	`dad_cidade` varchar(50) NOT NULL,
+	`dad_estado` varchar(50) NOT NULL,
+	`dad_cep` varchar(20) NOT NULL,
+	PRIMARY KEY (`cod_idLocal`)
+);
+
+CREATE TABLE `funcionarios` (
+	`cod_idFuncionario` INT NOT NULL AUTO_INCREMENT,
+	`cod_idEmpresa` INT NOT NULL,
+	`cod_idPessoa` INT NOT NULL,
+	`cod_idConta` INT NOT NULL,
+	PRIMARY KEY (`cod_idFuncionario`)
+);
+
+CREATE TABLE `itens` (
+	`cod_idItem` INT NOT NULL AUTO_INCREMENT,
+	`dat_dataPerdidoItem` DATE NOT NULL,
+	`dat_dataDevolvidoItem` DATE NOT NULL,
+	`dad_devolvidoItem` BOOLEAN NOT NULL,
+	`cod_idEmpresa` INT NOT NULL,
+	`cod_idImagem` INT NOT NULL,
+	PRIMARY KEY (`cod_idItem`)
+);
+
+CREATE TABLE `usuarios` (
+	`cod_idUsuario` INT NOT NULL AUTO_INCREMENT,
+	`cod_idConta` INT NOT NULL,
+	`cod_idLocal` INT NOT NULL,
+	`cod_idPessoa` INT NOT NULL,
+	PRIMARY KEY (`cod_idUsuario`)
+);
+
+CREATE TABLE `imagens` (
+	`cod_idImagem` INT NOT NULL AUTO_INCREMENT,
+	`img_caminhoImagem` varchar(50000) NOT NULL,
+	PRIMARY KEY (`cod_idImagem`)
+);
+
+CREATE TABLE `pessoas` (
+	`cod_idPessoa` INT NOT NULL AUTO_INCREMENT,
+	`dad_nomePessoa` varchar(50) NOT NULL,
+	`dad_cpfPessoa` varchar(14) NOT NULL,
+	`dad_emailPessoa` varchar(100) NOT NULL,
+	`dad_telefonePessoa` varchar(20) NOT NULL,
+	PRIMARY KEY (`cod_idPessoa`)
+);
+
+CREATE TABLE `contas` (
+	`cod_idConta` INT NOT NULL AUTO_INCREMENT,
+	`dad_loginConta` varchar(50) NOT NULL,
+	`dad_senhaConta` varchar(50) NOT NULL,
+	`dad_nvlAcesso` INT NOT NULL DEFAULT '1',
+	PRIMARY KEY (`cod_idConta`)
+);
+
+ALTER TABLE `empresas` ADD CONSTRAINT `empresas_fk0` FOREIGN KEY (`cod_idLocal`) REFERENCES `locais`(`cod_idLocal`);
+
+ALTER TABLE `empresas` ADD CONSTRAINT `empresas_fk1` FOREIGN KEY (`cod_idConta`) REFERENCES `contas`(`cod_idConta`);
+
+ALTER TABLE `funcionarios` ADD CONSTRAINT `funcionarios_fk0` FOREIGN KEY (`cod_idEmpresa`) REFERENCES `empresas`(`cod_idEmpresa`);
+
+ALTER TABLE `funcionarios` ADD CONSTRAINT `funcionarios_fk1` FOREIGN KEY (`cod_idPessoa`) REFERENCES `pessoas`(`cod_idPessoa`);
+
+ALTER TABLE `funcionarios` ADD CONSTRAINT `funcionarios_fk2` FOREIGN KEY (`cod_idConta`) REFERENCES `contas`(`cod_idConta`);
+
+ALTER TABLE `itens` ADD CONSTRAINT `itens_fk0` FOREIGN KEY (`cod_idEmpresa`) REFERENCES `empresas`(`cod_idEmpresa`);
+
+ALTER TABLE `itens` ADD CONSTRAINT `itens_fk1` FOREIGN KEY (`cod_idImagem`) REFERENCES `imagens`(`cod_idImagem`);
+
+ALTER TABLE `usuarios` ADD CONSTRAINT `usuarios_fk0` FOREIGN KEY (`cod_idConta`) REFERENCES `contas`(`cod_idConta`);
+
+ALTER TABLE `usuarios` ADD CONSTRAINT `usuarios_fk1` FOREIGN KEY (`cod_idLocal`) REFERENCES `locais`(`cod_idLocal`);
+
+ALTER TABLE `usuarios` ADD CONSTRAINT `usuarios_fk2` FOREIGN KEY (`cod_idPessoa`) REFERENCES `pessoas`(`cod_idPessoa`);

@@ -7,10 +7,11 @@ package br.com.jsp.connector;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
- * Classe para criar conex√µes
+ * Classe para criar conexıes
  * @author patrick
  */
 public class ConnectionFactory {
@@ -20,7 +21,7 @@ public class ConnectionFactory {
     private final String password = "";//"tcc!@12";
     
     /**
-     * Contrutor para conex√£o com o banco digitado
+     * Contrutor para conex„o com o banco digitado
      * @param s nome do banco escolhido
      */
     public ConnectionFactory(String s){
@@ -29,30 +30,36 @@ public class ConnectionFactory {
         
         url = "jdbc:mysql://localhost:3306/" + s;
         
+        //url = "jdbc:mysql://bd-tcc-wim.mysql.uhserser.com/" + s;
+        //url = "jdbc:mysql://bd_tcc_wim:3306/" + s;
+
+        //url = "jdbc:mysql://tcc-entra21.mysql.uhserver.com:3306/" + s;
+        
     }
     
     /**
-     * Construtor para conex√£o com o banco mysql para quando nao se tem bancos criados ainda
+     * Construtor para conex„o com o banco mysql para quando nao se tem bancos criados ainda
      */
     public ConnectionFactory(){
         
         //
-        url = "jdbc:mysql://localhost:3306/teste";
+        //url = "jdbc:mysql://localhost:3306/mysql";
+        
+        url = "jdbc:mysql://bd-tcc-wim.mysql.uhserser.com:3306/mysql";
         
         //url = "jdbc:mysql://tcc-entra21.mysql.uhserver.com:3306/mysql";
         
     }
     
     /**
-     * Cria uma conex√£o com o banco de dados
-     * @return a conex√£o criada
+     * Cria uma conex„o com o banco de dados
+     * @return a conex„o criada
      */
     public Connection obterConexao(){
         
         Connection conexao = null;
         
         try{
-        	Class.forName("com.mysql.jdbc.Driver");
             
             conexao = DriverManager.getConnection(url, user, password);
             

@@ -11,6 +11,7 @@ package br.com.jsp.dao.CriadorDeComandosSQL;
  */
 public enum Where {
     
-    MAIOR, MENOR, IGUAL
+    MAIOR, MENOR, MAIOR_IGUAL, MENOR_IGUAL, IGUAL, DIFERENTE, BETWEEN, 
+    NOT_BETWEEN, LIKE, NOT_LIKE
     
 }

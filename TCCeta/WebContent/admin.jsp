@@ -1,8 +1,8 @@
 <%@page import="br.com.jsp.dao.*"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="br.com.jsp.bean.FuncionariosBean"%>
+<%@page import="br.com.jsp.bean.Funcionario"%>
+<%@page import="br.com.jsp.dao.CriadorDeComandosSQL.GenericDao"%>
 <%@page import="br.com.jsp.bean.response.Resposta"%>
-<%@page import="br.com.jsp.dao.CriadorDeComandosSQL.*"%>
 
 <%@page language="java" contentType="text/html; UTF-8"
 	pageEncoding="UTF-8"%>
@@ -11,6 +11,22 @@
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap.js"></script>
+
+<!-- Máscara da Data -->
+<script src="js/jquery.mask.js"></script>
+
+<script type="text/javascript" src="js/jquery.mask.js"></script>
+
+<script>
+	$(document).ready(function() {
+
+		$('.data').mask('00/00/0000', {
+			placeholder : "__/__/____"
+		});
+
+	});
+</script>
+
 
 <%@ include file="include/topo.jsp"%>
 <%
@@ -41,143 +57,108 @@
 
 		<!--Aba dos itens-->
 		<div role="tabpanel" class="tab-pane active" id="cadastroDeItem">
+			<h1 class="titulosTabs">
+				<strong> Cadastro de Items </strong>
+			</h1>
 			<form class="formularioCadastro" action="cadastrarItem.jsp">
-				<h1>
-					<strong> Cadastro de Items </strong>
-				</h1>
-				<input type="text" placeholder="Codigo" class="inputs"
-					name="cod_idItem"><br> <input type="text"
-					placeholder="Nome" class="inputs" name="dad_nomeItem"><br>
-				<input type="text" placeholder="Descrição" class="inputs"
-					name="inf_descItem"><br> <input type="text"
-					placeholder="Data*add mascara aqui" class="inputs"
-					name="dat_perdidoItem"><br> <input type="text"
-					placeholder="Disponibilidade*add checkbox" class="inputs"
-					name="dad_dispItem"><br>
-
-				<div class="container">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label>Upload Image</label>
-							<div class="input-group">
-								<span class="input-group-btn"> <span
-									class="btn btn-default btn-file"> Browse… <input
-										type="file" id="imgInp">
-								</span>
-								</span> <input type="text" class="form-control" readonly>
-							</div>
-							<img id='img-upload' />
-						</div>
-					</div>
-				</div>
-
-				<input type="text" placeholder="IdCliente" class="inputs"
+				<input type="text" readonly="readonly" placeholder="Codigo"
+					class="form-control" name="cod_idItem"><br> <input
+					type="text" placeholder="Nome" class="form-control"
+					name="dad_nomeItem"><br> <input type="data"
+					class="form-control data" name="dat_perdidoItem"><br>
+				<input type="text" placeholder="IdCliente" class="form-control"
 					name="cod_idCliente"><br>
-				<p>
-				<center>
-					<input type="submit" value="Cadastrar">
-				</center>
-				</p>
+				<textarea class="form-control" placeholder="Descrição" rows="3"
+					name="inf_descItem"></textarea>
 			</form>
+
+			<!--Imagem-->
+			<input type="file" onchange="readURL(this);"
+				accept="image/png, image/jpg, image/jpeg" />
+
+			<!--Função do preview da imagem-->
+			<script>
+				function readURL(input) {
+
+					if (input.files && input.files[0]) {
+						var reader = new FileReader();
+
+						reader.onload = function(e) {
+							$('#imagemItem').attr('src', e.target.result);
+						};
+
+						//                                var nome = input.value.toString();
+						//                                alert(nome);
+
+						//                                if (nome.indexOf(".jpg") == -1) {
+						//
+						//                                } else if (nome.indexOf(".jpeg") == -1) {
+						//
+						//                                } else if (nome.indexOf(".png") == -1) {
+						//
+						//                                } else {
+						//                                    reader.readAsDataURL(input.files[0]);
+						//                                }
+						reader.readAsDataURL(input.files[0]);
+
+					}
+				};
+			</script>
+
+			<img id="imagemItem" src="imagens/180.png" alt="your image"
+				class="campoImagem" />
+			<p>
+			<center>
+				<input type="submit" class="btn btn-default" value="Cadastrar">
+			</center>
+			</p>
+
+
 		</div>
 
+
+
+
 		<!--Aba de Busca-->
+
 		<div role="tabpanel" class="tab-pane" id="itemsPerdidos">
-			<h1>
-				<h1>
-					<strong> Items Perdidos </strong>
-				</h1>
 
-				<div>
-					<busca> <form2 class="navbar-form navbar-left"
-						role="search">
+			<h1 class="titulosTabs">
+				<strong> Items Perdidos </strong>
+			</h1>
+
+			<div>
+				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
-						<input type="text" placeholder="Local" id="botaoRedondo">
-						<input type="text" placeholder="Objeto" id="botaoRedondo">
-						
-						
-						<input type="text" class="js-date" maxlength="10" placeholder="__/__/____" />
-							
-							
-							
-
+						<input type="text" class="form-control" placeholder="Local"
+							id="botaoRedondo"> <input type="text"
+							class="form-control" placeholder="Objeto" id="botaoRedondo">
+						<input type="data" class="form-control data"
+							name="dat_perdidoItem" />
 					</div>
 					<button type="submit" class="btn btn-default">Buscar</button>
-					</form2> </busca>
-				</div>
+				</form>
+			</div>
 		</div>
 
 		<!--Aba dos administradores-->
 		<div role="tabpanel" class="tab-pane" id="verAdministradores">
-			<h1>
+			<h1 class="titulosTabs">
 				<strong> Administradores </strong>
-				<div>
-					<!-- Tabela -->
-					<%
-						Resposta<ArrayList<FuncionariosBean>> resposta = FuncionarioDao.selectWhere("idCliente", Where.IGUAL.ordinal(), session.getAttribute("id"));
-					
-						String estrutura;
-				
-						if (resposta.getFuncionou()) {
-
-							estrutura = "<table class='table table-striped tabela'>";
-							estrutura += "<tr>";
-							estrutura += "<td>Login</td>";
-							estrutura += "<td>Nome</td>";
-							estrutura += "<td>IdEmpresa	</td>";
-							estrutura += "<td>Editar</td>";
-							estrutura += "</tr>";
-
-							ArrayList<FuncionariosBean> lista = resposta.getObjeto();
-
-							for (FuncionariosBean funcionario : lista) {
-
-								
-								/*
-								String ovo = "";
-								ovo += session.getAttribute("id");
-								int numero = Integer.parseInt(ovo);
-
-								if (funcionario.getIdCliente() == numero) {
-								}
-								*/
-									estrutura += "<tr>";
-									estrutura += "<td>" + funcionario.getLogin() + "</td>";
-									estrutura += "<td>" + funcionario.getNome() + "</td>";
-									estrutura += "<td>" + funcionario.getIdCliente() + "</td>";
-									estrutura += "<td><a href='edicao.jsp?cod_idFuncionario=" + funcionario.getId()
-											+ "'><span class='glyphicon glyphicon-pencil'></span></a></td>";
-
-									estrutura += "</tr>";
-
-								
-							}
-						} else {
-							estrutura = "<h1>Skidaddle skadoodle your dick is now a noodle</h1>";
-						}
-
-						out.print(estrutura);
-					%>
-				</div>
+			</h1>
+			<jsp:include page="acoes/table.jsp" />
+			<p>
+				<input type="submit" value="Cadastrar funcionário"
+					onclick="window.location = 'cadastroAdm.jsp';" />
+			</p>
 		</div>
 	</div>
 
 </div>
-
 </div>
 
 </main>
-
-<section>
-	<footer>
-		<p>Copyright What is Missing 2018 | Todos os direitos reservados</p>
-		<a><img src="imagens\redesSociais\facebook.jpg"></a> <a><img
-			src="imagens\redesSociais\twitter.jpg"></a> <a><img
-			src="imagens\redesSociais\google.jpg"></a>
-
-	</footer>
-</section>
-
+<%@ include file="include/rodape.jsp"%>
 </body>
 
 </html>
