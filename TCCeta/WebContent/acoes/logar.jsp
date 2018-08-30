@@ -8,7 +8,7 @@
 <%@page import="br.com.jsp.dao.CriadorDeComandosSQL.GenericDao"%>
 <%@page import="br.com.jsp.bean.Funcionario"%>
 <%@page import="br.com.jsp.connector.ConnectionFactory"%>
-<%@page import="br.com.jsp.bean.response.Resposta;"%>
+<%@page import="br.com.jsp.bean.response.Resposta"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 
@@ -20,22 +20,39 @@
 	//Instanciar um objeto bean
 	Funcionario ub = new Funcionario();
 
-	Resposta<ArrayList<Funcionario>> respostaF = new GenericDao<Funcionario>(Funcionario.class)
-			.selectAll();
+	Resposta<ArrayList<Funcionario>> respostaF = new GenericDao<Funcionario>(Funcionario.class).selectAll();
 
 	Resposta<ArrayList<Usuario>> respostaU = new GenericDao<Usuario>(Usuario.class).selectAll();
 	
-	
-	
-	
-	
-	
-	
 	Resposta<ArrayList<Conta>> respostaContas = ContaDao.selectWhere("login", Where.IGUAL, loginInformado);
 	
+        
+        
+	if(respostaContas.getFuncionou() && respostaF.getFuncionou() && respostaU.getFuncionou()){
+            
+            Conta conta = respostaContas.getObjeto().get(0);
+            
+            if(conta.senhaEstaCorreta(senhaInformada)){
+
+                session.setAttribute("sessaoUsuario", conta);
+                    
+                session.setAttribute("nivel", respostaContas.getObjeto().get(0).getNivelDeAcesso());
+                response.sendRedirect("../admin.jsp");
+                
+                
+            }else{
+                //senha incorreta
+                response.sendRedirect("../entrar.jsp?msg=falhaLogin");
+            }
+            
+        }else{
+            //pagina de erro
+           response.sendRedirect("../entrar.jsp?msg=falhaLogin");
+        }
 	
-	
-	if(respostaContas.getObjeto().get(0).senhaEstaCorreta(senhaInformada)){
+        
+        
+	/*if(respostaContas.getObjeto().get(0).senhaEstaCorreta(senhaInformada)){
 		
 		int nivel = respostaContas.getObjeto().get(0).getNivelDeAcesso();
 		
@@ -46,16 +63,16 @@
 		}else if(nivel == NivelDeAcesso.Funcionario.ordinal()){
 			
 			//login com funcionario
-			//response.sendRedirect("../admin.jsp");
-			
+			response.sendRedirect("../admin.jsp");
+                        
 		}else if(nivel == NivelDeAcesso.Usuario.ordinal()){
 			
 			//login com usuario
-			//response.sendRedirect("../buscar.jsp");
+			response.sendRedirect("../buscar.jsp");
 
 		}
 		
-	}
+	}*/
 	
 	
 	

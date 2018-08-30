@@ -14,26 +14,16 @@
 
 <!-- Máscara da Data -->
 <script src="js/jquery.mask.js"></script>
+<script type="text/javascript" src="js/mascaras.js"></script>
 
 <script type="text/javascript" src="js/jquery.mask.js"></script>
 
-<script>
-	$(document).ready(function() {
-
-		$('.data').mask('00/00/0000', {
-			placeholder : "__/__/____"
-		});
-
-	});
-</script>
-
-
 <%@ include file="include/topo.jsp"%>
 <%
-	//Valida o nÃ­vel
+/*	//Valida o nÃ­vel
 	if (Integer.parseInt(String.valueOf(session.getAttribute("nivel"))) != 1) {
 		response.sendRedirect("index.jsp");
-	}
+	}*/
 %>
 
 <main>
@@ -141,17 +131,18 @@
 			</div>
 		</div>
 
-		<!--Aba dos administradores-->
+		<!--Aba dos administradores
 		<div role="tabpanel" class="tab-pane" id="verAdministradores">
 			<h1 class="titulosTabs">
 				<strong> Administradores </strong>
 			</h1>
-			<jsp:include page="acoes/table.jsp" />
+			<//jsp:include page="acoes/table.jsp" />
 			<p>
 				<input type="submit" value="Cadastrar funcionário"
 					onclick="window.location = 'cadastroAdm.jsp';" />
 			</p>
 		</div>
+                        -->
 	</div>
 
 </div>

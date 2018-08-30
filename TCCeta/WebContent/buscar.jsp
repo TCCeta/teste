@@ -3,23 +3,17 @@
 <!-- Máscara da Data -->
 <script src="js/jquery.mask.js"></script>
 
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.mask.js"></script>
-
-<script>
-    $(document).ready(function () {
-
-        $('.data').mask('00/00/0000', {placeholder: "__/__/____"});
-
-    });
-</script>
-
+<script type="text/javascript" src="js/mascaras.js"></script>
 
 <%@ include file="include/topo.jsp"%>
-<%
+<%/*
 	//Valida o nível
 	if (Integer.parseInt(String.valueOf(session.getAttribute("nivel"))) != 2) {
 		response.sendRedirect("index.jsp");
 	}
+*/
 %>
 
 

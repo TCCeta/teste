@@ -10,6 +10,7 @@
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 
 <%
+    /*
 	Resposta<ArrayList<Funcionario>> resposta = new GenericDao<Funcionario>(Funcionario.class)
 			.selectAll();
 
@@ -51,5 +52,6 @@
 	}
 
 	out.print(estrutura);
+*/
 	
 %>

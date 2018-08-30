@@ -29,7 +29,7 @@ public class Conta {
     @Coluna(nome = "dad_nvlAcesso", tipo = Types.INTEGER)
     private int nivelDeAcesso;
     
-    @Coluna(nome = "", tipo = Types.VARCHAR)
+    @Coluna(nome = "dad_salt", tipo = Types.VARCHAR)
     private String salt;
     
     public void setSenha(String senha){

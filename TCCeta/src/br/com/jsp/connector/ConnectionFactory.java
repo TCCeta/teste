@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
- * Classe para criar conexões
+ * Classe para criar conexï¿½es
  * @author patrick
  */
 public class ConnectionFactory {
@@ -21,7 +21,7 @@ public class ConnectionFactory {
     private final String password = "";//"tcc!@12";
     
     /**
-     * Contrutor para conexão com o banco digitado
+     * Contrutor para conexï¿½o com o banco digitado
      * @param s nome do banco escolhido
      */
     public ConnectionFactory(String s){
@@ -38,7 +38,7 @@ public class ConnectionFactory {
     }
     
     /**
-     * Construtor para conexão com o banco mysql para quando nao se tem bancos criados ainda
+     * Construtor para conexï¿½o com o banco mysql para quando nao se tem bancos criados ainda
      */
     public ConnectionFactory(){
         
@@ -52,8 +52,8 @@ public class ConnectionFactory {
     }
     
     /**
-     * Cria uma conexão com o banco de dados
-     * @return a conexão criada
+     * Cria uma conexï¿½o com o banco de dados
+     * @return a conexï¿½o criada
      */
     public Connection obterConexao(){
         
@@ -61,6 +61,8 @@ public class ConnectionFactory {
         
         try{
             
+            Class.forName("com.mysql.jdbc.Driver");
+
             conexao = DriverManager.getConnection(url, user, password);
             
         }catch(Exception e){
