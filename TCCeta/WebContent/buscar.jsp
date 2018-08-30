@@ -7,7 +7,9 @@
 <script type="text/javascript" src="js/jquery.mask.js"></script>
 <script type="text/javascript" src="js/mascaras.js"></script>
 
-<%@ include file="include/topo.jsp"%>
+<%@ include file="include/topo_novo_com_sessao.jsp"%>
+<%@ include file="include/rodape.jsp"%>
+
 <%/*
 	//Valida o nível
 	if (Integer.parseInt(String.valueOf(session.getAttribute("nivel"))) != 2) {
@@ -33,16 +35,7 @@
 
 <!-- Ordem dos Itens Encontrados --> </main>
 
-<!-- Footer -->
-<section>
-	<footer>
-		<p>Copyright What is Missing 2018 | Todos os direitos reservados</p>
-		<a><img src="imagens\redesSociais\facebook.jpg"></a> <a><img
-			src="imagens\redesSociais\twitter.jpg"></a> <a><img
-			src="imagens\redesSociais\google.jpg"></a>
 
-	</footer>
-</section>
 </body>
 
 </html>

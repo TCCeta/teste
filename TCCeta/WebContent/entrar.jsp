@@ -1,4 +1,4 @@
-<%@ include file="include/topo_V2.jsp"%>
+<%@ include file="include/topo_novo.jsp"%>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <%
 	if (session.getAttribute("sessaoUsuario") == null) {
@@ -12,12 +12,12 @@
 		</h1>
 		<p>
 		<center>
-			<input type="text" placeholder="Usuário" class="inputs" name="email">
+			<input type="text" placeholder="Usuário" class="form-control" id="inputs" name="email">
 		</center>
 		</p>
 		<p>
 		<center>
-			<input type="password" placeholder="Senha" class="inputs"
+			<input type="password" placeholder="Senha" class="form-control" id="inputs"
 				name="senha">
 		</center>
 		</p>

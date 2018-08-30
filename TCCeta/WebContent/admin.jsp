@@ -18,7 +18,7 @@
 
 <script type="text/javascript" src="js/jquery.mask.js"></script>
 
-<%@ include file="include/topo.jsp"%>
+<%@ include file="include/topo_novo_com_sessao.jsp"%>
 <%
 /*	//Valida o nÃ­vel
 	if (Integer.parseInt(String.valueOf(session.getAttribute("nivel"))) != 1) {

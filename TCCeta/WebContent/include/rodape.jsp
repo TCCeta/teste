@@ -1,13 +1,13 @@
 
 <link href="css/estilos.css" rel="stylesheet">
 
-	<section>
-		<footer class="rodape">
-		
-			<p>Copyright What is Missing 2018 | Todos os direitos reservados</p>
-			<a><img src="imagens\redesSociais\facebook.jpg"></a> <a><img
-				src="imagens\redesSociais\twitter.jpg"></a> <a><img
-				src="imagens\redesSociais\google.jpg"></a>
+<!-- Footer -->
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<script src="../js/bootstrap.min.js"></script>
+<link href="../css/bootstrap.css" rel="stylesheet">
 
-		</footer>
-	</section>
+	<!-- Copyright -->
+	<div class="footer">© 2018 Copyright: What is Missing</div>
+
+</footer>
+<!-- Footer -->

@@ -4,7 +4,7 @@
 	src: url(../fontes/madeyn_sans/MadeynSans-Regular.ttf)
 }
 
-*{
+* {
 	font-family: fonteLogo;
 }
 
@@ -12,6 +12,12 @@ body {
 	background-image: url(../imagens/fundos/doodles.png);
 }
 
+.telaInicial{
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+	border-radius: 5px;
+}
 
 /*Desktop*/
 @media only screen and (min-width: 1081px) {
@@ -52,19 +58,20 @@ body {
 		color: white;
 		font-family: fonteLogo;
 	}
-	footer {
-		position: absolute;
-		text-align: left;
-		width: 99%;
-		margin: auto;
-		overflow: auto;
-		bottom: 0px;
+	.footer {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		background-color: #222222;
+		color: white;
+		text-align: center;
 	}
-	footer p {
+	.footer p {
 		float: left;
 		margin-top: 20px;
 	}
-	footer a {
+	.footer a {
 		float: right;
 		margin: 1px;
 	}
@@ -103,19 +110,20 @@ body {
 		font-family: fonteLogo;
 		overflow: auto;
 	}
-	footer {
-		position: absolute;
-		text-align: left;
-		width: 90%;
-		margin: auto;
-		overflow: auto;
-		bottom: 0px;
+	.footer {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		background-color: #222222;
+		color: white;
+		text-align: center;
 	}
-	footer p {
+	.footer p {
 		float: left;
 		margin-top: 20px;
 	}
-	footer a {
+	.footer a {
 		float: right;
 		margin: 1px;
 	}
@@ -154,19 +162,20 @@ body {
 		font-family: fonteLogo;
 		overflow: auto;
 	}
-	footer {
-		position: absolute;
-		text-align: left;
-		width: 90%;
-		margin: auto;
-		overflow: auto;
-		bottom: 0px;
+	.footer {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		background-color: #222222;
+		color: white;
+		text-align: center;
 	}
-	footer p {
+	.footer p {
 		float: left;
-		margin-top: 80px;
+		margin-top: 20px;
 	}
-	footer a {
+	.footer a {
 		float: right;
 		margin: 1px;
 	}
@@ -187,13 +196,11 @@ body {
 	color: white;
 }
 
-.inputs {
-	border-radius: 5px;
-}
-
 #inputs {
 	border-radius: 5px;
 }
+
+
 
 .fieldsete {
 	height: 300px;
@@ -259,32 +266,73 @@ textarea {
 	margin-top: 2px;
 }
 
-
 .data {
 	border-radius: 5px;
 }
 
 #cadastroDeItem {
 	margin-left: 10px;
-    width: 700px;
-    height: 380px;
-    background-color: darkgray;
+	width: 700px;
+	height: 380px;
+	background-color: darkgray;
 	border-radius: 5px;
 }
 
-.titulosTabs{
+.titulosTabs {
 	margin-left: 5px;
 }
 
+.nav-tabs {
+	border-bottom: 2px solid #DDD;
+}
 
-.nav-tabs { border-bottom: 2px solid #DDD; }
-    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
-    .nav-tabs > li > a { border: none; color: #666; }
-        .nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; color: #4285F4 !important; background: transparent; }
-        .nav-tabs > li > a::after { content: ""; background: #4285F4; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
-    .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
-.tab-nav > li > a::after { background: #21527d none repeat scroll 0% 0%; color: #fff; }
-.tab-pane { padding: 15px 0; }
-.tab-content{padding:20px}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover
+	{
+	border-width: 0;
+}
 
-.card {background: #FFF none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; }
+.nav-tabs>li>a {
+	border: none;
+	color: #666;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li>a:hover {
+	border: none;
+	color: #4285F4 !important;
+	background: transparent;
+}
+
+.nav-tabs>li>a::after {
+	content: "";
+	background: #4285F4;
+	height: 2px;
+	position: absolute;
+	width: 100%;
+	left: 0px;
+	bottom: -1px;
+	transition: all 250ms ease 0s;
+	transform: scale(0);
+}
+
+.nav-tabs>li.active>a::after, .nav-tabs>li:hover>a::after {
+	transform: scale(1);
+}
+
+.tab-nav>li>a::after {
+	background: #21527d none repeat scroll 0% 0%;
+	color: #fff;
+}
+
+.tab-pane {
+	padding: 15px 0;
+}
+
+.tab-content {
+	padding: 20px
+}
+
+.card {
+	background: #FFF none repeat scroll 0% 0%;
+	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+	margin-bottom: 30px;
+}

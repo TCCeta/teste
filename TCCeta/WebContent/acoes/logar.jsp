@@ -34,10 +34,23 @@
             
             if(conta.senhaEstaCorreta(senhaInformada)){
 
-                session.setAttribute("sessaoUsuario", conta);
+            	if(conta.getNivelDeAcesso() == NivelDeAcesso.Usuario.ordinal()){
+            		
+					session.setAttribute("sessaoUsuario", conta);
                     
-                session.setAttribute("nivel", respostaContas.getObjeto().get(0).getNivelDeAcesso());
-                response.sendRedirect("../admin.jsp");
+                    session.setAttribute("nivel", respostaContas.getObjeto().get(0).getNivelDeAcesso());
+                    response.sendRedirect("../buscar.jsp");
+            		
+            	}else if(conta.getNivelDeAcesso() == NivelDeAcesso.Funcionario.ordinal()){
+            		
+            		session.setAttribute("sessaoUsuario", conta);
+                    
+                    session.setAttribute("nivel", respostaContas.getObjeto().get(0).getNivelDeAcesso());
+                    response.sendRedirect("../admin.jsp");
+                    
+            	}
+            	
+                
                 
                 
             }else{
